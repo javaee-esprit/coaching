@@ -12,7 +12,7 @@ public class UserServiceDelegate  {
 
 	private static final String jndiName = "ejb:/project-ejb/UserService!services.UserServiceRemote";
 	
-	private static UserServiceRemote getProxy(){
+	public static UserServiceRemote getProxy(){
 		return (UserServiceRemote) ServiceLocator.getInstance().getProxy(jndiName);
 	}
 	
