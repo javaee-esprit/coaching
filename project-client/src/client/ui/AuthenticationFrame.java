@@ -15,6 +15,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import client.delegate.UserServiceDelegate;
+import client.session.Session;
+import domain.Admin;
+import domain.Employee;
+import domain.User;
+
 public class AuthenticationFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -75,7 +81,30 @@ public class AuthenticationFrame extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//UserServiceDelegate.au
+				User user = UserServiceDelegate.authenticate(lf.getText(), pf.getText());
+				if (user != null) {
+					System.out.print("ACCESS GRANTED");
+					Session.getInstance().setUser(user);
+					if(user instanceof Admin){
+						System.out.println(" AS ADMIN");
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									AdminFrame frame = new AdminFrame();
+									frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						});
+					}else if (user instanceof Employee) {
+						System.out.println(" AS EMPLOYEE");
+					}else if (user instanceof  User) {
+						System.out.println(" AS USER");
+					}			
+				}else{
+					System.out.println("ACCESS DENIED");
+				}
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
