@@ -13,7 +13,7 @@ import domain.Employee;
 import domain.User;
 
 @Stateless
-public class UserService implements UserServiceRemote {
+public class UserService implements UserServiceRemote, UserServiceLocal {
 	
 	@PersistenceContext
 	private EntityManager em;

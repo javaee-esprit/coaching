@@ -2,14 +2,16 @@ package services;
 
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
+
+
 
 
 import domain.Employee;
 import domain.User;
 
-@Remote
-public interface UserServiceRemote {
+@Local
+public interface UserServiceLocal {
 	
 	void create(User user);
 	User authenticate(String login, String password);
